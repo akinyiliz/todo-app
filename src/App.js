@@ -1,7 +1,7 @@
 import React from "react";
 
 function App() {
-	return <div>Todo App</div>;
+	return <div className="font-bold">Todo App</div>;
 }
 
 export default App;
