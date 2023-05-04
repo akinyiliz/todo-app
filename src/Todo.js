@@ -9,10 +9,13 @@ function Todo({ todo }) {
 					type="checkbox"
 					className="h-[30px] text-gray-700"
 				/>
-				<p className="ml-2">{todo}</p>
+				<p className="ml-2 capitalize">{todo.text}</p>
 			</div>
 
-			<FaTrashAlt size={20} />
+			<FaTrashAlt
+				size={20}
+				className="text-gray-700"
+			/>
 		</li>
 	);
 }
