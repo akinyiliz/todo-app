@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 import { AiOutlinePlus } from "react-icons/ai";
+import { db } from "./firebase";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 export const styles = {};
 
 function App() {
-	const [todos, setTodos] = useState(["Learn react", "Learn tailwind"]);
+	const [todos, setTodos] = useState([]);
+
+	// Create todo
+
+	// Read todo
+	useEffect(() => {
+		const q = query(collection(db, "todos"));
+		const unsubscribe = onSnapshot(q, (querySnapshot) => {
+			let todosArr = [];
+			querySnapshot.forEach((doc) => {
+				todosArr.push({ ...doc.data(), id: doc.id });
+			});
+			setTodos(todosArr);
+			console.log(todosArr);
+		});
+		return () => unsubscribe();
+	}, []);
+	// Update todo
+
+	// Delete todo
 	return (
 		<div className="bg-[whitesmoke] w-full h-screen">
 			<div className="max-w-[1240px] w-full mx-auto p-12">
@@ -25,14 +46,19 @@ function App() {
 						/>
 					</form>
 					<ul>
-						{todos.map((todo) => (
-							<Todo todo={todo} />
+						{todos.map((todo, index) => (
+							<Todo
+								key={index}
+								todo={todo}
+							/>
 						))}
 					</ul>
 					<div>
-						<p className="text-center text-base text-gray-500 py-2">
-							You have 2 todos
-						</p>
+						{todos.length < 1 ? null : (
+							<p className="text-center text-base text-gray-500 py-2">
+								{`You have ${todos.length} todos`}
+							</p>
+						)}
 					</div>
 				</div>
 			</div>
