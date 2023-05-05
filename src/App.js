@@ -3,6 +3,7 @@ import Todo from "./Todo";
 import { AiOutlinePlus } from "react-icons/ai";
 import { db } from "./firebase";
 import {
+	addDoc,
 	collection,
 	doc,
 	onSnapshot,
@@ -14,8 +15,21 @@ export const styles = {};
 
 function App() {
 	const [todos, setTodos] = useState([]);
+	const [input, setInput] = useState("");
 
 	// Create todo
+	const createTodo = async (e) => {
+		e.preventDefault();
+		if (input === "") {
+			alert("Please enter a valid todo.");
+			return;
+		}
+		await addDoc(collection(db, "todos"), {
+			text: input,
+			completed: false,
+		});
+		setInput("");
+	};
 
 	// Read todo
 	useEffect(() => {
@@ -26,7 +40,6 @@ function App() {
 				todosArr.push({ ...doc.data(), id: doc.id });
 			});
 			setTodos(todosArr);
-			console.log(todosArr);
 		});
 		return () => unsubscribe();
 	}, []);
@@ -45,16 +58,23 @@ function App() {
 					todos
 				</h1>
 				<div className="bg-white max-w-[900px] mx-auto h-full rounded-2xl shadow-lg">
-					<form className="w-full flex justify-between items-center border-b-4">
+					<form
+						onSubmit={createTodo}
+						className="w-full flex justify-between items-center border-b-4"
+					>
 						<input
+							value={input}
+							onChange={(e) => setInput(e.target.value)}
 							type="text"
 							placeholder="Add todo"
 							className="w-full p-4 border-gray-500 text-gray-500 outline-0 text-xl rounded-2xl"
 						/>
-						<AiOutlinePlus
-							size={25}
-							className="mx-4 text-gray-500"
-						/>
+						<button
+							onClick={createTodo}
+							className="mx-4 text-gray-500 cursor-pointer"
+						>
+							<AiOutlinePlus size={25} />
+						</button>
 					</form>
 					<ul>
 						{todos.map((todo, index) => (
