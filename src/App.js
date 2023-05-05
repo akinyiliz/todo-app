@@ -5,6 +5,7 @@ import { db } from "./firebase";
 import {
 	addDoc,
 	collection,
+	deleteDoc,
 	doc,
 	onSnapshot,
 	query,
@@ -51,6 +52,10 @@ function App() {
 	};
 
 	// Delete todo
+	const handleDelete = async (id) => {
+		await deleteDoc(doc(db, "todos", id));
+	};
+
 	return (
 		<div className="bg-[whitesmoke] w-full h-screen">
 			<div className="max-w-[1240px] w-full mx-auto p-12">
@@ -82,6 +87,7 @@ function App() {
 								key={index}
 								todo={todo}
 								handleComplete={handleComplete}
+								handleDelete={handleDelete}
 							/>
 						))}
 					</ul>
