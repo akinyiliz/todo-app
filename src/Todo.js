@@ -1,21 +1,37 @@
 import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
-function Todo({ todo }) {
+const styles = {
+	li: "h-full flex items-center justify-between p-4 border-b",
+	liCompleted:
+		"h-full flex items-center justify-between p-4 border-b bg-gray-400",
+	text: "ml-2 capitalize cursor-pointer",
+	textCompleted: "ml-2 capitalize line-through cursor-pointer",
+};
+
+function Todo({ todo, handleComplete }) {
 	return (
-		<li className="h- flex items-center justify-between p-4 border-b">
+		<li className={todo.completed ? styles.liCompleted : styles.li}>
 			<div className="flex items-center text-xl text-gray-700">
 				<input
 					type="checkbox"
-					className="h-[30px] text-gray-700"
+					className="h-[30px] text-gray-700 cursor-pointer"
+					onChange={() => handleComplete(todo)}
+					checked={todo.completed ? "checked" : ""}
 				/>
-				<p className="ml-2 capitalize">{todo.text}</p>
+				<p
+					onClick={() => handleComplete(todo)}
+					className={todo.completed ? styles.textCompleted : styles.text}
+				>
+					{todo.text}
+				</p>
 			</div>
-
-			<FaTrashAlt
-				size={20}
-				className="text-gray-700"
-			/>
+			<button className="cursor-pointer">
+				<FaTrashAlt
+					size={20}
+					className="text-gray-700"
+				/>
+			</button>
 		</li>
 	);
 }

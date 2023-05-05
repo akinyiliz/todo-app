@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import Todo from "./Todo";
 import { AiOutlinePlus } from "react-icons/ai";
 import { db } from "./firebase";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import {
+	collection,
+	doc,
+	onSnapshot,
+	query,
+	updateDoc,
+} from "firebase/firestore";
 
 export const styles = {};
 
@@ -25,6 +31,11 @@ function App() {
 		return () => unsubscribe();
 	}, []);
 	// Update todo
+	const handleComplete = async (todo) => {
+		await updateDoc(doc(db, "todos", todo.id), {
+			completed: !todo.completed,
+		});
+	};
 
 	// Delete todo
 	return (
@@ -50,6 +61,7 @@ function App() {
 							<Todo
 								key={index}
 								todo={todo}
+								handleComplete={handleComplete}
 							/>
 						))}
 					</ul>
