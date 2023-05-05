@@ -9,7 +9,7 @@ const styles = {
 	textCompleted: "ml-2 capitalize line-through cursor-pointer",
 };
 
-function Todo({ todo, handleComplete }) {
+function Todo({ todo, handleComplete, handleDelete }) {
 	return (
 		<li className={todo.completed ? styles.liCompleted : styles.li}>
 			<div className="flex items-center text-xl text-gray-700">
@@ -26,7 +26,10 @@ function Todo({ todo, handleComplete }) {
 					{todo.text}
 				</p>
 			</div>
-			<button className="cursor-pointer">
+			<button
+				className="cursor-pointer"
+				onClick={() => handleDelete(todo.id)}
+			>
 				<FaTrashAlt
 					size={20}
 					className="text-gray-700"
