@@ -10,6 +10,6 @@ This is a Todo application that has CRUD functionality. A user can Add, Edit, De
 
 ### Built with
 
-- [React](https://reactjs.org/) - JS library
+- [React](https://reactjs.dev/) - JS library
 - [TailwindCSS](https://tailwindcss.com/) - CSS framework
 - [Firebase](https://firebase.google.com/) - A set of backend cloud computing services & app development platforms.
