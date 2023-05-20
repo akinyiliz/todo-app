@@ -12,4 +12,4 @@ This is a Todo application that has CRUD functionality. A user can Add, Edit, De
 
 - [React](https://reactjs.org/) - JS library
 - [TailwindCSS](https://tailwindcss.com/) - CSS framework
-- [Firebase](https://reactjs.org/) - A set of backend cloud computing services & app development platforms.
+- [Firebase](https://firebase.google.com/) - A set of backend cloud computing services & app development platforms.
